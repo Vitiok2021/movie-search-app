@@ -1,0 +1,58 @@
+<div class="cards__container">
+  <div class="header-actions">
+    <mat-form-field
+      appearance="outline"
+      class="search-field"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>Search movies</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="search..."
+        [(ngModel)]="searchTerm"
+        (input)="filterMovies()"
+      />
+    </mat-form-field>
+    <a
+      mat-stroked-button
+      color="accent"
+      [routerLink]="['/favorites']"
+      class="card-link__favorite"
+      >Favorites</a
+    >
+  </div>
+  <div class="cards__list">
+    @for(movie of filteredMovies; track movie.id) {
+
+    <mat-card class="cards__item">
+      <img mat-card-image [src]="movie.poster" alt="{{ movie.title }}" />
+      <mat-card-header>
+        <mat-card-title>{{ movie.title }}</mat-card-title>
+        <mat-card-subtitle>{{ movie.year }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="primary"
+          [routerLink]="['/movies', movie.id]"
+          class="card__btn"
+        >
+          Details
+        </button>
+        <button
+          mat-icon-button
+          (click)="toggleFavorite(movie.id)"
+          [color]="movie.isFavorite ? 'warn' : ''"
+        >
+          <span class="material-icons">
+            {{ movie.isFavorite ? "favorite" : "favorite_border" }}
+          </span>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    } @empty {
+    <p class="empty-message">No movie found</p>
+    }
+  </div>
+</div>

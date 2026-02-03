@@ -1,0 +1,46 @@
+<div class="favorite__container">
+  <h2 class="favorite-title">Wish List</h2>
+  <div class="favorite-list">
+    @for(movie of favoriteMovies; track movie.id) {
+
+    <mat-card class="favorite-list__item">
+      <img mat-card-image [src]="movie.poster" alt="{{ movie.title }}" />
+
+      <mat-card-header>
+        <mat-card-title class="favorite-list__item-name">{{
+          movie.title
+        }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-chip-set>
+          <mat-chip class="favorite-list__item-year">{{ movie.year }}</mat-chip>
+          <mat-chip class="favorite-list__item-genre">{{
+            movie.genre
+          }}</mat-chip>
+        </mat-chip-set>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="removeFromFav(movie.id)"
+        >
+          Remove
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    } @empty {
+    <div class="empty-state">
+      <mat-icon>favorite_border</mat-icon>
+      <p>Список улюблених фільмів порожній</p>
+    </div>
+    }
+  </div>
+  <a
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/movies']"
+    class="favorite-link__home"
+    >Повернутись до списку</a
+  >
+</div>
